@@ -1,0 +1,21 @@
+version: '3'
+
+volumes:
+    dbdata_postgresdb:
+        driver: local
+
+services:
+    postgresdb:
+        image: postgres:11.1-alpine
+        ports:
+            - 5432:5432
+        volumes:
+            - dbdata_postgresdb:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+            POSTGRES_DB: ${DATABASE_NAME}
+
+    adminer:
+        image: adminer
+        ports:
+            - 8080:8080
